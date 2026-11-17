@@ -1,0 +1,37 @@
+NETLIFY HOSTING — BIRTHDAY SURPRISE
+
+This folder is a Netlify-ready version of the site. It has the main page and a separate admin page, plus a Netlify Function that saves favour replies in persistent Netlify Blobs storage.
+
+IMPORTANT FOLDER LAYOUT
+When uploading to GitHub, upload the CONTENTS of the netlify-site folder so that these items appear at the repository root:
+  netlify.toml
+  package.json
+  public\index.html
+  public\admin.html
+  public\(photos, music, Cupid image, and video assets)
+  netlify\functions\answers.mjs
+
+Do not upload the parent animation-page-master folder. Do not put ADMIN_CODE in any file or in GitHub.
+
+HOST IT USING GITHUB + NETLIFY (NO NODE INSTALL NEEDED ON YOUR PC)
+
+1. Open https://github.com and sign in or create an account.
+2. Create a new repository named birthday-surprise-netlify. Choose Private if you want the source files hidden from other GitHub users, then create the repository.
+3. In the empty repository, choose Add file > Upload files.
+4. In File Explorer, open the netlify-site folder. Drag its contents into the GitHub upload area. Make sure you include the netlify and public folders, plus netlify.toml and package.json. The repository should show netlify.toml at its top level after upload.
+5. Enter a commit message such as Add birthday surprise site, then choose Commit changes.
+6. Open https://app.netlify.com and sign in or create an account.
+7. Choose Add new project > Import an existing project. Select GitHub, allow Netlify to access the repository, and choose birthday-surprise-netlify.
+8. Keep the build settings from netlify.toml: publish directory public, functions directory netlify/functions, and build command npm install --no-audit --no-fund. Start the deploy.
+9. In the new Netlify project, open Project configuration > Environment variables and add:
+     Key: ADMIN_CODE
+     Value: a private password/passphrase only you know (use at least 20 random characters; do not put it in GitHub).
+     Scope: Functions (or all scopes) and the Production deploy context.
+10. Save the variable, then trigger a fresh deploy so the function receives it.
+11. Open the Netlify site URL to see the birthday page. The separate admin page is the same address followed by /admin.html. Enter the ADMIN_CODE value there to see submitted replies.
+
+After publishing, submit one test reply from the main page, then open /admin.html and confirm it appears. You can share the main Netlify URL or make a QR code from that URL. Anyone with the main URL can visit the surprise page; only someone with ADMIN_CODE can read saved replies in the admin page.
+
+If the deploy fails, open the Netlify project’s Deploys page and read the latest deploy log. Confirm the GitHub repository has netlify.toml at its top level and all files inside public and netlify/functions were uploaded.
+
+The current source folder remains available for local hosting. This netlify-site folder is the one to connect to Netlify.

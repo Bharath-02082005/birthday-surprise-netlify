@@ -1,0 +1,31 @@
+FIX FOR THE CURRENT NETLIFY DEPLOY ERROR
+
+Your deploy log says Netlify found netlify.toml but could not find either of the folders named there:
+  publish = public
+  functions = netlify/functions
+
+That means GitHub has the files flattened at the repository root. The Netlify config is already pointing to the right folders; add those folders to GitHub with their directory structure intact.
+
+From File Explorer, open:
+  C:\Users\user\Videos\animation-page-master\animation-page-master\netlify-site
+
+In the GitHub repository, choose Add file > Upload files. Upload these items from that folder:
+  1. The public folder itself (not just the files inside it).
+  2. The netlify folder itself (not just the files inside it).
+  3. package.json and netlify.toml from the netlify-site folder root.
+
+If GitHub asks to replace files, keep the uploaded netlify.toml and package.json. Commit the upload. Your repository root should then contain this exact layout:
+  netlify.toml
+  package.json
+  public\index.html
+  public\admin.html
+  public\Happy-Birthday.mp3
+  public\cupid_realistic_3d.png
+  public\birthday-sky-original.mp4
+  netlify\functions\answers.mjs
+
+The other photos/poster are also inside public. The extra copies of index.html and assets currently at the GitHub root can remain; Netlify publishes the public folder only. This keeps unrelated local server files out of the deployed site.
+
+After the GitHub commit, Netlify should start another deploy automatically. If it does not, open Netlify > your project > Deploys > Trigger deploy > Deploy site. Check that the new build log no longer says public or netlify/functions is missing.
+
+Keep the publish and functions settings in netlify.toml as they are. Changing publish to "." would only hide the missing-functions-folder error; the favour replies would still not save through the Netlify API.
